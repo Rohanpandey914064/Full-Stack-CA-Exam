@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Feedback Management System</h1>
+            <p>Submit and manage student feedback for academic sessions</p>
+        </header>
+
+        <!-- Feedback Submission Form -->
+        <section class="card form-section">
+            <h2>Submit Student Feedback</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="studentName">Student Name *</label>
+                    <input type="text" id="studentName" placeholder="Enter student name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseName">Course Name *</label>
+                    <input type="text" id="courseName" placeholder="e.g. Full Stack Development" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Rating (1 to 5) *</label>
+                    <select id="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+                        <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+                        <option value="3">⭐⭐⭐ (3 - Good)</option>
+                        <option value="2">⭐⭐ (2 - Fair)</option>
+                        <option value="1">⭐ (1 - Poor)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Feedback Message *</label>
+                    <textarea id="message" rows="3" placeholder="Write feedback message here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">Submit Feedback</button>
+            </form>
+            <div id="formAlert" class="alert"></div>
+        </section>
+
+        <!-- Feedback Records Section -->
+        <section class="card list-section">
+            <div class="list-header">
+                <h2>All Feedback Records</h2>
+                <div class="controls">
+                    <label for="limitSelect">Per page:</label>
+                    <select id="limitSelect">
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                    <button class="btn btn-secondary btn-sm" id="refreshBtn">🔄 Refresh</button>
+                </div>
+            </div>
+
+            <!-- Feedback Table -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Rating</th>
+                            <th>Feedback Message</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedbackTableBody">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading feedback records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="pagination-bar">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing records
+                </div>
+                <div class="pagination-buttons">
+                    <button class="btn btn-secondary btn-sm" id="prevBtn">⬅ Previous</button>
+                    <span id="pageIndicator" class="page-indicator">Page 1 of 1</span>
+                    <button class="btn btn-secondary btn-sm" id="nextBtn">Next ➡</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,145 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Student Feedback API (CA Exam)",
+  "collectionId": "ca-feedback-api-collection",
+  "dateExported": "2026-11-02",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "req_1",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "1. Submit Feedback (Success)",
+      "url": "http://localhost:5000/api/feedback",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"studentName\": \"Rahul Sharma\",\n  \"courseName\": \"Full Stack Development\",\n  \"message\": \"Excellent teaching and practical examples!\",\n  \"rating\": 5\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req_2",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "2. Submit Feedback (Missing Field Error)",
+      "url": "http://localhost:5000/api/feedback",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"studentName\": \"Amit Kumar\",\n  \"rating\": 4\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req_3",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "3. Submit Feedback (Invalid Rating > 5)",
+      "url": "http://localhost:5000/api/feedback",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"studentName\": \"Pooja Verma\",\n  \"courseName\": \"Node.js Basics\",\n  \"message\": \"Detailed explanations\",\n  \"rating\": 7\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req_4",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "4. Retrieve Feedback (Pagination)",
+      "url": "http://localhost:5000/api/feedback?page=1&limit=2",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "page",
+          "value": "1",
+          "isPath": false
+        },
+        {
+          "name": "limit",
+          "value": "2",
+          "isPath": false
+        }
+      ]
+    },
+    {
+      "_id": "req_5",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "5. Update Feedback Status (Success)",
+      "url": "http://localhost:5000/api/feedback/REPLACE_WITH_ID",
+      "method": "PATCH",
+      "sortNum": 50000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"status\": \"Reviewed\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req_6",
+      "colId": "ca-feedback-api-collection",
+      "containerId": "",
+      "name": "6. Update Status (Record Not Found 404)",
+      "url": "http://localhost:5000/api/feedback/507f1f77bcf86cd799439011",
+      "method": "PATCH",
+      "sortNum": 60000,
+      "created": "2026-11-02T11:00:00.000Z",
+      "modified": "2026-11-02T11:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"status\": \"Reviewed\"\n}",
+        "form": []
+      }
+    }
+  ]
+}
+
