@@ -29,8 +29,16 @@
    Connected to MongoDB successfully
    ```
 
-### 2. Open Frontend (Optional / Extra Presentation)
-- Simply double click or open `frontend/index.html` in your browser (or right click and select **"Open with Live Server"** in VS Code).
+### 2. Run React Frontend (Optional / Extra Presentation)
+1. Open a new terminal:
+   ```bash
+   cd "frontend"
+   ```
+2. Start the Vite React development server:
+   ```bash
+   npm run dev
+   ```
+3. Open `http://localhost:3000` in your browser.
 
 ---
 
