@@ -8,14 +8,42 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/student_feedback';
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(MONGO_URI)
-    .then(() => console.log('Connected to MongoDB successfully'))
-    .catch((err) => console.error('MongoDB connection error:', err));
+let feedbacks = [
+    {
+        _id: "6725ba1234567890abcdef11",
+        studentName: "Rahul Sharma",
+        courseName: "Full Stack Development",
+        message: "Excellent teaching and practical examples!",
+        rating: 5,
+        status: "Pending",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        _id: "6725ba1234567890abcdef12",
+        studentName: "Sneha Patel",
+        courseName: "Database Systems",
+        message: "Loved MongoDB queries",
+        rating: 4,
+        status: "Reviewed",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        _id: "6725ba1234567890abcdef13",
+        studentName: "Vikram Singh",
+        courseName: "Web Development",
+        message: "Hands on coding was helpful",
+        rating: 5,
+        status: "Pending",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }
+];
 
 app.get('/', (req, res) => {
     res.send('Student Feedback Management API is running');
@@ -40,20 +68,23 @@ app.post('/api/feedback', async (req, res) => {
             });
         }
 
-        const newFeedback = new Feedback({
+        const newFeedback = {
+            _id: new mongoose.Types.ObjectId().toString(),
             studentName: studentName.trim(),
             courseName: courseName.trim(),
             message: message.trim(),
             rating: numericRating,
-            status: 'Pending'
-        });
+            status: 'Pending',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
 
-        const savedFeedback = await newFeedback.save();
+        feedbacks.unshift(newFeedback);
 
         return res.status(201).json({
             success: true,
             message: 'Feedback submitted successfully',
-            data: savedFeedback
+            data: newFeedback
         });
     } catch (error) {
         return res.status(500).json({
@@ -73,21 +104,16 @@ app.get('/api/feedback', async (req, res) => {
         if (limit < 1) limit = 5;
 
         const skip = (page - 1) * limit;
-
-        const totalRecords = await Feedback.countDocuments();
-
-        const feedbackList = await Feedback.find()
-            .sort({ createdAt: -1 })
-            .skip(skip)
-            .limit(limit);
+        const totalRecords = feedbacks.length;
+        const paginatedData = feedbacks.slice(skip, skip + limit);
 
         return res.status(200).json({
             success: true,
             page: page,
             limit: limit,
             totalRecords: totalRecords,
-            totalPages: Math.ceil(totalRecords / limit),
-            data: feedbackList
+            totalPages: Math.ceil(totalRecords / limit) || 1,
+            data: paginatedData
         });
     } catch (error) {
         return res.status(500).json({
@@ -125,23 +151,22 @@ app.patch('/api/feedback/:id', async (req, res) => {
             });
         }
 
-        const updatedFeedback = await Feedback.findByIdAndUpdate(
-            id,
-            { status: status },
-            { new: true, runValidators: true }
-        );
+        const feedbackIndex = feedbacks.findIndex(item => item._id === id);
 
-        if (!updatedFeedback) {
+        if (feedbackIndex === -1) {
             return res.status(404).json({
                 success: false,
                 message: 'Feedback record not found'
             });
         }
 
+        feedbacks[feedbackIndex].status = status;
+        feedbacks[feedbackIndex].updatedAt = new Date().toISOString();
+
         return res.status(200).json({
             success: true,
             message: 'Feedback status updated successfully',
-            data: updatedFeedback
+            data: feedbacks[feedbackIndex]
         });
     } catch (error) {
         return res.status(500).json({
